@@ -1,6 +1,6 @@
 // Api.js
 import axios from "axios";
-import { getFingerprint } from "./fingerPrinting";
+import { getFingerprint } from "./fingerprinting";
 
 // Create a instance of axios to use the same base url.
 const axiosAPI = axios.create({
