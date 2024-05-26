@@ -1,4 +1,4 @@
-import { getFingerprint } from "./fingerPrinting";
+import { getFingerprint } from "./fingerprinting";
 import Api from "./API";
 
 export const getPolls = async () => {
