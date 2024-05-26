@@ -1,0 +1,44 @@
+<script>
+  import PollDetails from "./PollDetails.svelte";
+  import PollStore from "../store/pollstore";
+  import { onDestroy, onMount } from "svelte";
+
+  //   export let polls = [];
+
+  //   const unsubscibe = PollStore.subscribe((data) => {
+  //     polls = data;
+  //   });
+
+  //   onMount(() => {
+  //     // get data from db
+  //   });
+
+  //   onDestroy(() => {
+  //     // unsubscibe from store
+  //     unsubscibe();
+  //   });
+</script>
+
+<div class="poll-list">
+  {#each $PollStore as poll (poll.id)}
+    <PollDetails {poll} on:vote />
+  {:else}
+    <div class="empty">
+      <p>No Poll(s) at the momemt</p>
+    </div>
+  {/each}
+</div>
+
+<style>
+  .poll-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  @media (max-width: 540px) {
+    .poll-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
