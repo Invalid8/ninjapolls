@@ -197,6 +197,7 @@
 
   .banner {
     gap: 30px;
+    padding-top: 10px;
   }
 
   .banner .info {
@@ -303,10 +304,6 @@
   }
 
   @media (max-width: 360px) {
-    .space-in {
-      padding: 10px;
-    }
-
     .feedback img {
       width: 300px;
     }

@@ -46,14 +46,8 @@ export const getPollById = async (id) => {
 export const deletePollById = async (id) => {
   try {
     const response = await Api.delete(`/polls/${id}`);
-    if (!response.ok) {
-      const { message } = await response.json();
-      return {
-        success: false,
-        message,
-      };
-    }
-    const { poll, message } = await response.json();
+
+    const { poll, message } = await response;
     return {
       poll,
       success: true,
@@ -70,27 +64,13 @@ export const deletePollById = async (id) => {
 // pollServices.js
 
 export const createPoll = async ({ question, options }) => {
-  const iid = await getFingerprint(); // Pass device ID in the headers
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/polls/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-device-id": iid,
-      },
-      body: JSON.stringify({ question, options }),
-    });
+    const response = await Api.post(
+      `/polls/create`,
+      JSON.stringify({ question, options })
+    );
 
-    if (!response.ok) {
-      const { message } = await response.json();
-
-      return {
-        success: false,
-        message,
-      };
-    }
-
-    const { poll, message } = await response.json();
+    const { poll, message } = await response;
 
     return {
       poll,

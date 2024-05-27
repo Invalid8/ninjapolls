@@ -29,20 +29,20 @@
       {/if}
       <ul class="flex items-center gap-4 flex-wrap">
         <li>
-          <Link class="font-bold" let:active to="/"
+          <Link class="font-bold" on:click={handleToggle} let:active to="/"
             ><span class={active ? "text-primary" : "text-color"}>Home</span
             ></Link
           >
         </li>
         <li>
-          <Link class="font-bold" let:active to="/poll"
+          <Link class="font-bold" on:click={handleToggle} let:active to="/poll"
             ><span class={active ? "text-primary" : "text-color"}
               >Create Poll</span
             ></Link
           >
         </li>
         <li>
-          <Link class="font-bold" let:active to="/help"
+          <Link class="font-bold" on:click={handleToggle} let:active to="/help"
             ><span class={active ? "text-primary" : "text-color"}
               >How to create?</span
             ></Link
@@ -94,7 +94,8 @@
       left: 0;
       right: 0;
 
-      background-color: #000000af;
+      background-color: #000000cb;
+      color: #fff;
 
       display: grid;
       place-items: center;

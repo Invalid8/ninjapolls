@@ -12,11 +12,11 @@
   let activeTab = "AddNewPoll";
 
   function handleAddPoll() {
+    forceLoad = true;
     tabsCompact.setActiveTab("CurrentPolls");
   }
 
   function handleAddNewClick() {
-    forceLoad = true;
     tabsCompact.setActiveTab("AddNewPoll");
   }
 </script>
