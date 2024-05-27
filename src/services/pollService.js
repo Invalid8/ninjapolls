@@ -4,14 +4,6 @@ import Api from "./API";
 export const getPolls = async () => {
   try {
     const response = await Api.get(`/polls/active`);
-    if (!response.ok) {
-      console.log(response);
-      const { message } = await response.json();
-      return {
-        success: false,
-        message,
-      };
-    }
 
     const { polls, message } = await response.json();
 
