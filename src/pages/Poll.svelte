@@ -14,7 +14,7 @@
     console.log(id);
 
     loading = true;
-    const { success, message, poll: data } = await getPollById();
+    const { success, message, poll: data } = await getPollById(id);
     if (success) poll = data;
 
     window.alert(message);

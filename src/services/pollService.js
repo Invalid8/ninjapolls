@@ -12,6 +12,7 @@ export const getPolls = async () => {
       message,
     };
   } catch (error) {
+    console.log(error);
     return {
       success: false,
       message: error.message,
