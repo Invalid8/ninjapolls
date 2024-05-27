@@ -4,22 +4,28 @@
   import { Button } from "../shared";
   import { Plus } from "lucide-svelte";
   import { navigate } from "svelte-routing";
+  import { getPollById } from "../services/pollService";
 
-  let id;
+  export let id;
   let poll;
   let loading = true;
 
-  onMount(() => {
-    loading = true
-    console.log(poll, id);
-    loading = false
+  onMount(async () => {
+    console.log(id);
+
+    loading = true;
+    const { success, message, poll: data } = await getPollById();
+    if (success) poll = data;
+
+    window.alert(message);
+    loading = false;
   });
 </script>
 
 {#if !loading}
   <div class="polling">
     <div class="other">
-      <Button smSize on:click={() => navigate("/user")}>
+      <Button smSize on:click={() => navigate("/poll")}>
         <span class="flexy w-fit ic font-bold">
           <span>Create Poll</span>
           <Plus />
@@ -51,6 +57,7 @@
     align-items: center;
     width: fit-content;
     margin: 0 auto;
+    padding: 20px;
   }
 
   .flexy {

@@ -74,7 +74,8 @@
   }
 
   @media (min-width: 541px) {
-    .otha {
+    .otha,
+    .close {
       display: none;
     }
   }

@@ -94,9 +94,8 @@
 
       const { success, message, poll } = await createPoll(body);
 
-      console.log(poll.link);
-
       if (success) {
+        console.log(poll.link);
         dispatcher("addPoll");
       }
 

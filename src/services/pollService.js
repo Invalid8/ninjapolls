@@ -21,15 +21,8 @@ export const getPolls = async () => {
 
 export const getPollById = async (id) => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/polls/${id}`);
-    if (!response.ok) {
-      const { message } = await response.json();
-      return {
-        success: false,
-        message,
-      };
-    }
-    const { poll, message } = await response.json();
+    const response = await Api.get(`/polls/${id}`);
+    const { poll, message } = await response;
     return {
       poll,
       success: true,
