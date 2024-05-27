@@ -11,13 +11,13 @@
   let loading = true;
 
   onMount(async () => {
-    console.log(id);
-
     loading = true;
     const { success, message, poll: data } = await getPollById(id);
     if (success) poll = data;
+    else {
+      window.alert(message);
+    }
 
-    window.alert(message);
     loading = false;
   });
 </script>

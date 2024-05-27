@@ -35,7 +35,7 @@
     loading = true;
     const { message } = await deletePollById(id);
 
-    alert(message);
+    window.alert(message);
 
     loading = false;
   }

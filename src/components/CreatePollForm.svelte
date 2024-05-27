@@ -99,7 +99,7 @@
         dispatcher("addPoll");
       }
 
-      alert(message);
+      window.alert(message);
       loading = false;
     }
   };
