@@ -5,6 +5,7 @@
   import Loader from "./Loader.svelte";
   import Veil from "./Veil.svelte";
   import { Trash } from "lucide-svelte";
+  import { showNotification } from "../lib";
 
   const dispatcher = createEventDispatcher();
 
@@ -71,9 +72,13 @@
       inp: false,
     };
 
+    // @ts-ignore
     options_pack = [...options_pack, op];
   }
 
+  /**
+   * @param {string} id
+   */
   function deleteOption(id) {
     options_pack = options_pack.filter((e) => e.id !== id);
   }
@@ -99,7 +104,10 @@
         dispatcher("addPoll");
       }
 
-      window.alert(message);
+      showNotification(success ? "success" : "error", "top-right", undefined, {
+        message: message,
+      });
+
       loading = false;
     }
   };

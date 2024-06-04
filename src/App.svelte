@@ -3,8 +3,10 @@
   import { Home, NotFound, Admin, User, Poll, Help } from "./pages";
   import { fade, slide } from "svelte/transition";
   import { ThemeSwitch, Header, Footer } from "./components";
+  import { ToastContainer } from "./lib";
+  import { FlatToast } from "svelte-toasts";
 
-  export let url = "";
+  export const url = "";
 </script>
 
 <div class="wrapper">
@@ -27,6 +29,9 @@
 <div class="hover-t">
   <ThemeSwitch />
 </div>
+<ToastContainer let:data>
+  <FlatToast {data} />
+</ToastContainer>
 
 <style>
   .hover-t {

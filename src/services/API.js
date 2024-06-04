@@ -8,7 +8,11 @@ const axiosAPI = axios.create({
 });
 
 // implement a method to execute all the request from here.
-const apiRequest = async (method, url, request) => {
+const apiRequest = async (
+  /** @type {string} */ method,
+  /** @type {any} */ url,
+  /** @type {any} */ request
+) => {
   const iid = await getFingerprint(); //
 
   const headers = {
@@ -32,19 +36,24 @@ const apiRequest = async (method, url, request) => {
 };
 
 // function to execute the http get request
-const get = (url, request) => apiRequest("get", url, request);
+const get = (/** @type {any} */ url, /** @type {any} */ request) =>
+  apiRequest("get", url, request);
 
 // function to execute the http delete request
-const deleteRequest = (url, request) => apiRequest("delete", url, request);
+const deleteRequest = (/** @type {any} */ url, /** @type {any} */ request) =>
+  apiRequest("delete", url, request);
 
 // function to execute the http post request
-const post = (url, request) => apiRequest("post", url, request);
+const post = (/** @type {any} */ url, /** @type {any} */ request) =>
+  apiRequest("post", url, request);
 
 // function to execute the http put request
-const put = (url, request) => apiRequest("put", url, request);
+const put = (/** @type {any} */ url, /** @type {any} */ request) =>
+  apiRequest("put", url, request);
 
 // function to execute the http path request
-const patch = (url, request) => apiRequest("patch", url, request);
+const patch = (/** @type {any} */ url, /** @type {any} */ request) =>
+  apiRequest("patch", url, request);
 
 // expose your method to other services or actions
 const API = {

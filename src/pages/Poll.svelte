@@ -5,6 +5,7 @@
   import { Plus } from "lucide-svelte";
   import { navigate } from "svelte-routing";
   import { getPollById } from "../services/pollService";
+  import { showNotification } from "../lib";
 
   export let id;
   let poll;
@@ -15,7 +16,9 @@
     const { success, message, poll: data } = await getPollById(id);
     if (success) poll = data;
     else {
-      window.alert(message);
+      showNotification(success ? "success" : "error", "top-right", undefined, {
+        message: message,
+      });
     }
 
     loading = false;

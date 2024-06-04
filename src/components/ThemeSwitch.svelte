@@ -22,7 +22,7 @@
   };
 </script>
 
-<div class="switch" on:click={toggleTheme} on:keypress>
+<div class="switch" on:click={toggleTheme}>
   {#if theme === "light"}
     <Sun class="icon" />
   {:else}

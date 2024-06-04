@@ -17,9 +17,9 @@
 <div class="home min-h-full w-full flex flex-col gap-4 justify-center">
   <div class="swat">
     <div class="banner space-in flex justify-center">
-      <div class="info flex flex-col gap-4">
+      <div class="info flex flex-col gap-4 sm:text-start text-center">
         <div class="flex gap-2 flex-col">
-          <h1 class="items-center">
+          <h1 class="items-center font-bold">
             Quickly Set Up and Operate Your<span class="text-tertiary">
               {" "} Polling</span
             >
@@ -33,20 +33,25 @@
             need.
           </p>
         </div>
-        <div class="btn-box flex gap-2 flex-wrap">
-          <Button on:click={() => navigate("/poll")}>
+        <div
+          class="btn-box flex gap-2 flex-wrap sm:flex-nowrap sm:flex-row flex-col sm:justify-start justify-center items-start sm:items-center"
+        >
+          <Button
+            on:click={() => navigate("/poll")}
+            className="sm:mx-0 mx-auto"
+          >
             <span class="flex gap-1 items-center fomt-bold">
               <span>Create Poll</span>
               <PlusCircle />
             </span>
           </Button>
-          <div class="search-box">
+          <div class="search-box sm:mx-0 mx-auto">
             <input
               type="text"
               placeholder="Poll ID"
               class="vote"
               on:input={(e) => {
-                const value = e.target.value;
+                const value = e.currentTarget.value;
                 search = value;
               }}
               value={search.trim()}
@@ -58,15 +63,11 @@
               }}>Find Poll</button
             >
           </div>
-          <!-- <Button color="tertiary">
-            <span class="flex gap-1 items-center fomt-bold">
-              <span>Vote In</span>
-              <Vote />
-            </span>
-          </Button> -->
         </div>
       </div>
-      <div class="view-box">
+      <div
+        class="view-box sm:mx-0 mx-auto flex sm:block justify-center items-center"
+      >
         <!-- <img src="/pollError.png" alt="error.poll" /> -->
         <div class="inn w-full h-full">
           <PollDetails
@@ -152,18 +153,16 @@
   <section class="space-in w-full flex justify-center">
     <div class="feedback flex justify-between items-center gap-4 flex-wrap">
       <img
+        class="mx-auto sm:mx-0"
         alt="Live polling"
         srcset="https://images.ctfassets.net/rvt0uslu5yqp/63IE7tzWsucVnVoM9Ui2Am/839bf3579582ceedd4bf62b77e42252e/Mentimeter_Web_Live-Polling_2022-11__1_.svg?&amp;w=640&amp;q=75 1x, https://images.ctfassets.net/rvt0uslu5yqp/63IE7tzWsucVnVoM9Ui2Am/839bf3579582ceedd4bf62b77e42252e/Mentimeter_Web_Live-Polling_2022-11__1_.svg?&amp;w=1200&amp;q=75 2x"
         src="https://images.ctfassets.net/rvt0uslu5yqp/63IE7tzWsucVnVoM9Ui2Am/839bf3579582ceedd4bf62b77e42252e/Mentimeter_Web_Live-Polling_2022-11__1_.svg?&amp;w=1200&amp;q=75"
       />
       <div class="flex flex-col gap-2 w-600">
         <h2 class="text-larger" id="instant-dynamic-feedback">
-          <span font-weight="semiBold" font-size="inherit" class=""
-            >Instant &amp; dynamic feedback</span
-          >
+          <span class="">Instant &amp; dynamic feedback</span>
         </h2>
         <p
-          font-size="2,3"
           class="f-ci f-dy f-dz f-p f-ea r-text leading-normal break-words max-w-full text-100 text-weak font-body"
         >
           Answers from your audience will appear in real-time with our dynamic
@@ -172,7 +171,6 @@
           GIFs for some added fun and visual effect.
         </p>
         <p
-          font-size="2,3"
           class="f-ci f-dy f-dz f-p f-ea r-text leading-normal break-words max-w-full text-100 text-weak font-body"
         ></p>
       </div>

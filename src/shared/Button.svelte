@@ -1,4 +1,8 @@
 <script>
+  // @ts-nocheck
+
+  import { cn } from "../lib";
+
   export let color = "primary";
   export let flat = false;
   export let type = "button";
@@ -6,11 +10,12 @@
   export let borderd = false;
   export let fullWidth = false;
   export let smSize = false;
+  export let className = "";
 </script>
 
 <button
   {type}
-  class={color}
+  class={cn(color, className)}
   class:flat
   class:inverse
   class:borderd

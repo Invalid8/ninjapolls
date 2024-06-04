@@ -2,6 +2,7 @@
   import Button from "../shared/Button.svelte";
   import { tweened } from "svelte/motion";
   import { deletePollById, vote } from "../services/pollService";
+  import { showNotification } from "../lib";
 
   export let poll;
   export let forView = true;
@@ -33,9 +34,11 @@
 
   async function handleDelete(id) {
     loading = true;
-    const { message } = await deletePollById(id);
+    const { message, success } = await deletePollById(id);
 
-    window.alert(message);
+    showNotification(success ? "success" : "error", "top-right", undefined, {
+      message: message,
+    });
 
     loading = false;
   }
@@ -66,7 +69,6 @@
             });
           }
         }}
-        on:keypress
       >
         <div
           class="percent percent-{colors[index]}"

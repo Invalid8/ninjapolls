@@ -7,6 +7,7 @@ import PollList from "./PollList.svelte";
 import PollDetails from "./PollDetails.svelte";
 import ThemeSwitch from "./ThemeSwitch.svelte";
 import Logo from "./Logo.svelte";
+import ShareLink from "./ShareLink.svelte";
 
 export {
   CreatePollForm,
@@ -18,4 +19,5 @@ export {
   PollList,
   ThemeSwitch,
   Logo,
+  ShareLink,
 };

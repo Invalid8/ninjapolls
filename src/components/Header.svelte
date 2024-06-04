@@ -12,12 +12,12 @@
 </script>
 
 <Router>
-  <header class="flex gap-2">
-    <h2>
+  <header class="flex gap-2 items-center">
+    <h3 class="font-bold">
       <a href="/">
         <Logo />
       </a>
-    </h2>
+    </h3>
     <div class="otha">
       <Button on:click={handleToggle}><Menu /></Button>
     </div>
