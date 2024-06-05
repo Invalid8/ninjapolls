@@ -108,13 +108,13 @@
   }
 </script>
 
-{#if !disableShare && poll}
+{#if !disableShare && poll && poll.isActive}
   <ShareLink open={openShare} {poll} />
 {/if}
 
 <div class="poll">
   {#if poll}
-    {#if !disableShare}
+    {#if !disableShare && poll.isActive}
       <div class="share absolute top-5 right-5">
         <button on:click={toggleShare}><Share2 /></button>
       </div>

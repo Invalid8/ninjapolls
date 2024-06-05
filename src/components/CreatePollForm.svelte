@@ -119,6 +119,7 @@
   <div class="form-field">
     <label for="question">Poll Question: </label>
     <input
+      maxlength="60"
       type="text"
       id="question"
       bind:value={question.value}
@@ -147,6 +148,7 @@
         </span>
       </label>
       <input
+        maxlength="60"
         type="text"
         id={`option-${arrayNumAlpha[index].letter}`}
         name={`option-${arrayNumAlpha[index].letter}`}
