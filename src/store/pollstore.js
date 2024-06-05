@@ -19,6 +19,13 @@ socket.on("pollUpdated", ({ poll, id }) => {
   });
 });
 
+socket.on("updateFully", (polls) => {
+  // Update the store when a poll is updated
+  PollStore.update(() => {
+    return polls;
+  });
+});
+
 export const fetchPolls = async () => {
   const { success, message, polls } = await getPolls();
 

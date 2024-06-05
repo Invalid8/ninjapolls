@@ -16,7 +16,7 @@
     const { success, message, poll: data } = await getPollById(id);
     if (success) poll = data;
     else {
-      showNotification(success ? "success" : "error", "top-right", undefined, {
+      showNotification("error", "top-right", undefined, {
         message: message,
       });
     }

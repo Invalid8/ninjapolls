@@ -1,7 +1,11 @@
 <script>
   import Button from "../shared/Button.svelte";
   import { tweened } from "svelte/motion";
-  import { deletePollById, vote } from "../services/pollService";
+  import {
+    deletePollById,
+    vote,
+    toggleStatusById,
+  } from "../services/pollService";
   import { cn, showNotification } from "../lib";
   import { Share2 } from "lucide-svelte";
   import ShareLink from "./ShareLink.svelte";
@@ -27,20 +31,33 @@
    * @param {any} id
    */
   async function handleVote(option, id) {
-    if (poll.expired) return;
+    if (!poll.isActive) {
+      showNotification("error", "top-right", undefined, {
+        message: "Poll is not active",
+      });
+      return;
+    }
+    if (poll.user.option == option) return;
 
     const pollId = id;
 
     loading = true;
 
     // Optimistic update
-    poll.answers = poll.answers.map(
-      (/** @type {{ answer: any; votes: number; }} */ e) => {
-        if (e.answer === option) {
-          return { ...e, votes: e.votes + 1 };
-        } else return { ...e, votes: e.votes - 1 };
+    poll.totalVotes = !poll.user.option ? poll.totalVotes + 1 : poll.totalVotes;
+    poll.answers = poll.answers.map((e) => {
+      if (e.answer === option) {
+        return { ...e, votes: e.votes + 1 };
+      } else if (e.answer === poll.user.option) {
+        return {
+          ...e,
+          votes: e.votes - 1,
+        };
+      } else {
+        return e;
       }
-    );
+    });
+    poll.user.option = option;
 
     const {
       poll: data,
@@ -70,6 +87,17 @@
     loading = false;
   }
 
+  async function handleStatusToggle(id) {
+    loading = true;
+    const { message, success } = await toggleStatusById(id);
+
+    showNotification(success ? "success" : "error", "top-right", undefined, {
+      message: message,
+    });
+
+    loading = false;
+  }
+
   let colors = ["a", "b", "c", "a", "b"];
 
   $: openShare = false;
@@ -79,26 +107,26 @@
   }
 </script>
 
-{#if !disableShare}
+{#if !disableShare && poll}
   <ShareLink open={openShare} {poll} />
 {/if}
 
 <div class="poll">
-  {#if !disableShare}
-    <div class="share absolute top-5 right-5">
-      <button on:click={toggleShare}><Share2 /></button>
-    </div>
-  {/if}
   {#if poll}
+    {#if !disableShare}
+      <div class="share absolute top-5 right-5">
+        <button on:click={toggleShare}><Share2 /></button>
+      </div>
+    {/if}
     <div class="flex flex-col gap-1">
       <h3 class="title">{poll?.question}</h3>
-      {#if poll.expired}
+      <p>Total votes: {poll?.totalVotes}</p>
+      {#if !poll.isActive}
         <div class="text-red-600 flex items-center gap-1">
           <div class="w-2 h-2 rounded-full bg-red-500"></div>
           Deactivated
         </div>
       {/if}
-      <p>Total votes: {poll?.totalVotes}</p>
     </div>
     {#each poll?.answers as option, index}
       <button
@@ -120,7 +148,19 @@
       </button>
     {/each}
     {#if poll.isAdmin}
-      <div class="delete">
+      <div class="delete flex items-center gap-2 justify-center">
+        <Button
+          flat
+          on:click={() => handleStatusToggle(poll?.id)}
+          borderd
+          color={poll.isActive ? "primary" : "secondary"}
+        >
+          {#if poll.isActive}
+            Deactivate
+          {:else}
+            Activate
+          {/if}
+        </Button>
         <Button flat on:click={() => handleDelete(poll?.id)}>Delete</Button>
       </div>
     {/if}
@@ -173,7 +213,6 @@
   p {
     font-style: 14px;
     color: #aaa;
-    margin-bottom: 20px;
   }
 
   .answer {

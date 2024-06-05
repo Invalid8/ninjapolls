@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
 
 # Editor directories and files
 .vscode/*
@@ -70,3 +71,7 @@ hide/src/shared/TabsContent.svelte
 hide/src/shared/TabsHeader.svelte
 hide/src/store/pollstore.js
 .vscode/extensions.json
+.env
+.env
+.env
+.env

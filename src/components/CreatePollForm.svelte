@@ -156,6 +156,12 @@
           op.inp = true;
 
           if (op.value.length < 1) op.error = "Option cannot be empty";
+          else if (
+            options_pack.find(
+              (e, indet) => e.value === op.value && indet !== index
+            )
+          )
+            op.error = "Option already exist!";
           else op.error = "";
         }}
       />

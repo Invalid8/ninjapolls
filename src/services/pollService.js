@@ -1,5 +1,6 @@
 import { getFingerprint } from "./fingerprinting";
 import Api from "./API";
+import { showNotification } from "../lib";
 
 export const getPolls = async () => {
   try {
@@ -12,10 +13,9 @@ export const getPolls = async () => {
       message,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
     };
   }
 };
@@ -32,7 +32,7 @@ export const getPollById = async (id) => {
   } catch (error) {
     return {
       success: false,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
     };
   }
 };
@@ -50,7 +50,24 @@ export const deletePollById = async (id) => {
   } catch (error) {
     return {
       success: false,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
+    };
+  }
+};
+
+export const toggleStatusById = async (id) => {
+  try {
+    const response = await Api.post(`/polls/toggle-status/${id}`);
+    const { message } = await response;
+
+    return {
+      success: true,
+      message,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || error.message,
     };
   }
 };
@@ -74,7 +91,7 @@ export const createPoll = async ({ question, options }) => {
   } catch (error) {
     return {
       success: false,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
     };
   }
 };
@@ -113,7 +130,7 @@ export const vote = async ({ id, answer }) => {
   } catch (error) {
     return {
       success: false,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
     };
   }
 };

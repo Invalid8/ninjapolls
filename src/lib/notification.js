@@ -14,8 +14,6 @@ function showNotification(type, position, autoClose, options) {
     type: type || "info",
     theme: "dark",
   });
-
-  console.log("add");
 }
 
 export { ToastContainer, showNotification, toasts };

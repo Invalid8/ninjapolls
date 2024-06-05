@@ -60,65 +60,70 @@
   };
 </script>
 
-<Modal title="Share Poll" {open} autoclose size="sm">
-  <div class="conte">
-    <p class="description text-lg">
-      {desc}
-      <a href={url}>{url}</a>
-      {" "}
-      <button
-        class="b bg-transparent dark:bg-transparent text-sm w-fit m-0"
-        on:click={() => copyToClipboard({ link: true })}
+{#if poll}
+  <Modal title="Share Poll" {open} autoclose size="sm">
+    <div class="conte">
+      <p class="description text-lg">
+        {desc}
+        <a href={url}>{url}</a>
+        {" "}
+        <button
+          class="b bg-transparent dark:bg-transparent text-sm w-fit m-0"
+          on:click={() => copyToClipboard({ link: true })}
+        >
+          <ClipboardCheck size="22" />
+        </button>
+      </p>
+      <div
+        class="share-buttons flex gap-2 flex-wrap justify-center items-center"
       >
-        <ClipboardCheck size="22" />
-      </button>
-    </p>
-    <div class="share-buttons flex gap-2 flex-wrap justify-center items-center">
-      <button class="bg-black share-button" on:click={copyToClipboard}>
-        <ClipboardCopy />
-      </button>
-      <Facebook
-        class="share-button"
-        quote={getPlatformSpecificText("Facebook")}
-        {url}
-      />
-      <X
-        class="share-button"
-        text={getPlatformSpecificText("X")}
-        {url}
-        hashtags="polling,voting,webdevelopment"
-        via="dalgoridim"
-        related="other,users"
-      />
-      <WhatsApp
-        class="share-button"
-        text={getPlatformSpecificText("WhatsApp")}
-      />
-      <Telegram
-        class="share-button"
-        text={getPlatformSpecificText("Telegram")}
-        {url}
-      />
-      <Email
-        subject={title}
-        body={getPlatformSpecificText("Email")}
-        class="share-button"
-      />
+        <button class="bg-black share-button" on:click={copyToClipboard}>
+          <ClipboardCopy />
+        </button>
+        <Facebook
+          class="share-button"
+          quote={getPlatformSpecificText("Facebook")}
+          {url}
+        />
+        <X
+          class="share-button"
+          text={getPlatformSpecificText("X")}
+          {url}
+          hashtags="polling,voting,webdevelopment"
+          via="dalgoridim"
+          related="other,users"
+        />
+        <WhatsApp
+          class="share-button"
+          text={getPlatformSpecificText("WhatsApp")}
+        />
+        <Telegram
+          class="share-button"
+          text={getPlatformSpecificText("Telegram")}
+          {url}
+        />
+        <Email
+          subject={title}
+          body={getPlatformSpecificText("Email")}
+          class="share-button"
+        />
 
-      <Reddit class="share-button" {title} {url} />
-      <LinkedIn class="share-button" {url} />
-      <Pinterest
-        class="share-button"
-        {url}
-        media="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/200px-Svelte_Logo.svg.png"
-        description={title}
-      />
+        <Reddit class="share-button" {title} {url} />
+        <LinkedIn class="share-button" {url} />
+        <Pinterest
+          class="share-button"
+          {url}
+          media="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/200px-Svelte_Logo.svg.png"
+          description={title}
+        />
+      </div>
     </div>
-  </div>
-  <svelte:fragment slot="footer">
-    <Button color="alternative" on:click={() => (open = false)}>Cancel</Button>
-  </svelte:fragment>
-</Modal>
+    <svelte:fragment slot="footer">
+      <Button color="alternative" on:click={() => (open = false)}>Cancel</Button
+      >
+    </svelte:fragment>
+  </Modal>
+{/if}
 
 <style>
   .description {
