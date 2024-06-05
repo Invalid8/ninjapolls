@@ -20,9 +20,11 @@ export const getPolls = async () => {
   }
 };
 
-export const getPollById = async (id, { example = false }) => {
+export const getPollById = async (id, opt) => {
   try {
-    const response = await Api.get(`${example ? "/example" : ""}/polls/${id}`);
+    const response = await Api.get(
+      `${!!opt.example ? "/example" : ""}/polls/${id}`
+    );
     const { poll, message } = await response;
     return {
       poll,
@@ -96,12 +98,15 @@ export const createPoll = async ({ question, options }) => {
   }
 };
 
-export const vote = async ({ id, answer }, { example = false }) => {
+export const vote = async ({ id, answer }, opt) => {
   try {
-    const response = await Api.post(`${example ? "/example" : ""}/polls/vote`, {
-      id,
-      option: answer,
-    });
+    const response = await Api.post(
+      `${!!opt.example ? "/example" : ""}/polls/vote`,
+      {
+        id,
+        option: answer,
+      }
+    );
 
     const { message, poll } = await response;
 
