@@ -2,17 +2,18 @@
   import Button from "../shared/Button.svelte";
   import { tweened } from "svelte/motion";
   import { deletePollById, vote } from "../services/pollService";
-  import { showNotification } from "../lib";
+  import { cn, showNotification } from "../lib";
+  import { Share2 } from "lucide-svelte";
+  import ShareLink from "./ShareLink.svelte";
 
   export let poll;
-  export let forView = true;
-  export let disabled = false;
+  export let disableShare = false;
 
   $: totalVotes = poll?.totalVotes;
   let loading = false;
 
   $: percententals = poll
-    ? poll.answers?.map((e) => {
+    ? poll.answers?.map((/** @type {{ votes: number; }} */ e) => {
         let p = Math.floor((100 / totalVotes) * e.votes) || 0;
         return p;
       })
@@ -21,17 +22,43 @@
   let tweenes = tweened([0, 0, 0, 0, 0]);
   $: tweenes.set(percententals);
 
+  /**
+   * @param {any} option
+   * @param {any} id
+   */
   async function handleVote(option, id) {
+    if (poll.expired) return;
+
+    const pollId = id;
+
     loading = true;
-    const { poll: data, message, success } = await vote({ id, answer: option });
+
+    // Optimistic update
+    poll.answers = poll.answers.map(
+      (/** @type {{ answer: any; votes: number; }} */ e) => {
+        if (e.answer === option) {
+          return { ...e, votes: e.votes + 1 };
+        } else return { ...e, votes: e.votes - 1 };
+      }
+    );
+
+    const {
+      poll: data,
+      message,
+      success,
+    } = await vote({ id: pollId, answer: option });
 
     if (success) {
       poll = data;
-    } else alert(message);
+    } else
+      showNotification("error", "top-right", undefined, { message: message });
 
     loading = false;
   }
 
+  /**
+   * @param {any} id
+   */
   async function handleDelete(id) {
     loading = true;
     const { message, success } = await deletePollById(id);
@@ -44,40 +71,55 @@
   }
 
   let colors = ["a", "b", "c", "a", "b"];
+
+  $: openShare = false;
+
+  function toggleShare() {
+    openShare = !openShare;
+  }
 </script>
 
-<div class="poll">
-  {#if poll}
-    {#if loading || poll.hasVoted}
-      <div class="loading"></div>
-    {/if}
-    <h3 class="title">{poll?.question}</h3>
-    <p>Total votes: {poll?.totalVotes}</p>
-    {#each poll?.answers as option, index}
-      <div
-        class="answer"
-        on:click={() => {
-          if (!disabled) handleVote(option.answer, poll?.id);
-          else {
-            poll.answers = poll?.answers.map((e) => {
-              if (e.answer === option.answer) {
-                e.value += 1;
-                console.log("log", e);
-              } else e.value -= 1;
+{#if !disableShare}
+  <ShareLink open={openShare} {poll} />
+{/if}
 
-              return e;
-            });
-          }
+<div class="poll">
+  {#if !disableShare}
+    <div class="share absolute top-5 right-5">
+      <button on:click={toggleShare}><Share2 /></button>
+    </div>
+  {/if}
+  {#if poll}
+    <div class="flex flex-col gap-1">
+      <h3 class="title">{poll?.question}</h3>
+      {#if poll.expired}
+        <div class="text-red-600 flex items-center gap-1">
+          <div class="w-2 h-2 rounded-full bg-red-500"></div>
+          Deactivated
+        </div>
+      {/if}
+      <p>Total votes: {poll?.totalVotes}</p>
+    </div>
+    {#each poll?.answers as option, index}
+      <button
+        class="answer overflow-hidden"
+        on:keydown
+        on:click={() => {
+          handleVote(option.answer, poll?.id);
         }}
       >
         <div
-          class="percent percent-{colors[index]}"
+          class={cn(
+            "percent",
+            `percent-${colors[index]}`,
+            poll?.user?.option === option?.answer && "opt"
+          )}
           style="width: {$tweenes[index]}%"
         ></div>
         <span class="ab">{option.answer} ({option.votes})</span>
-      </div>
+      </button>
     {/each}
-    {#if !forView}
+    {#if poll.isAdmin}
       <div class="delete">
         <Button flat on:click={() => handleDelete(poll?.id)}>Delete</Button>
       </div>
@@ -155,21 +197,31 @@
   .percent {
     height: 100%;
     position: absolute;
+    border-left: 4px solid grey;
   }
 
   .percent-a {
-    border-left: 4px solid var(--primary);
     background-color: var(--primary-a);
   }
 
+  .percent-a.opt {
+    border-left-color: var(--primary);
+  }
+
   .percent-b {
-    border-left: 4px solid var(--secondary);
     background-color: var(--secondary-a);
   }
 
+  .percent-b.opt {
+    border-left-color: var(--secondary);
+  }
+
   .percent-c {
-    border-left: 4px solid var(--tertiary);
     background-color: var(--tertiary-a);
+  }
+
+  .percent-c.opt {
+    border-left-color: var(--tertiary);
   }
 
   .delete {

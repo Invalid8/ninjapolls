@@ -8,7 +8,7 @@
   ];
 
   let tabsCompact;
-  let forceLoad = false;
+  $: forceLoad = false;
   let activeTab = "AddNewPoll";
 
   function handleAddPoll() {

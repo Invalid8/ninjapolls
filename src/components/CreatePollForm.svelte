@@ -100,8 +100,7 @@
       const { success, message, poll } = await createPoll(body);
 
       if (success) {
-        console.log(poll.link);
-        dispatcher("addPoll");
+        dispatcher("addPoll", true);
       }
 
       showNotification(success ? "success" : "error", "top-right", undefined, {

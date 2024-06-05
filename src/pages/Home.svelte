@@ -71,8 +71,7 @@
         <!-- <img src="/pollError.png" alt="error.poll" /> -->
         <div class="inn w-full h-full">
           <PollDetails
-            forView
-            disabled
+            disableShare
             poll={{
               poll_id: "356464_43546322-2e43234356",
               question: "Intresting stuff right?",

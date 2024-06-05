@@ -8,26 +8,29 @@
   import Veil from "./Veil.svelte";
   import { createEventDispatcher, onMount } from "svelte";
   import { getPolls } from "../services/pollService";
+  import { showNotification } from "../lib";
 
   const dispatcher = createEventDispatcher();
 
   export let forceLoad = false;
   let loading = false;
 
-  onMount(() => {
+  onMount(async () => {
+    loading = true;
     if (forceLoad) {
-      loading = true;
-      PollStore.update(async () => {
-        const { polls, success, message } = await getPolls();
+      const { polls, success, message } = await getPolls();
 
-        if (success) {
-          return polls;
-        } else {
-          console.error(message);
-        }
+      if (!success) {
+        showNotification("error", "top-right", undefined, {
+          message: message,
+        });
+      }
+
+      PollStore.update(() => {
+        return polls;
       });
-      loading = false;
     }
+    loading = false;
   });
 </script>
 
