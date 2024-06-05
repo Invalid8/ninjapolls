@@ -23,7 +23,7 @@ export const getPolls = async () => {
 export const getPollById = async (id, opt) => {
   try {
     const response = await Api.get(
-      `${!!opt.example ? "/example" : ""}/polls/${id}`
+      `${!!opt?.example ? "/example" : ""}/polls/${id}`
     );
     const { poll, message } = await response;
     return {
@@ -101,7 +101,7 @@ export const createPoll = async ({ question, options }) => {
 export const vote = async ({ id, answer }, opt) => {
   try {
     const response = await Api.post(
-      `${!!opt.example ? "/example" : ""}/polls/vote`,
+      `${!!opt?.example ? "/example" : ""}/polls/vote`,
       {
         id,
         option: answer,
