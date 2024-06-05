@@ -20,9 +20,9 @@ export const getPolls = async () => {
   }
 };
 
-export const getPollById = async (id) => {
+export const getPollById = async (id, { example = false }) => {
   try {
-    const response = await Api.get(`/polls/${id}`);
+    const response = await Api.get(`${example ? "/example" : ""}/polls/${id}`);
     const { poll, message } = await response;
     return {
       poll,
@@ -57,7 +57,7 @@ export const deletePollById = async (id) => {
 
 export const toggleStatusById = async (id) => {
   try {
-    const response = await Api.post(`/polls/toggle-status/${id}`);
+    const response = await Api.put(`/polls/toggle-status/${id}`);
     const { message } = await response;
 
     return {
@@ -96,31 +96,14 @@ export const createPoll = async ({ question, options }) => {
   }
 };
 
-export const vote = async ({ id, answer }) => {
-  const iid = await getFingerprint(); // Pass device ID in the headers
+export const vote = async ({ id, answer }, { example = false }) => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/polls/vote`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-device-id": iid,
-      },
-      body: JSON.stringify({
-        id,
-        option: answer,
-      }),
+    const response = await Api.post(`${example ? "/example" : ""}/polls/vote`, {
+      id,
+      option: answer,
     });
 
-    if (!response.ok) {
-      const { message } = await response.json();
-
-      return {
-        success: false,
-        message,
-      };
-    }
-
-    const { message, poll } = await response.json();
+    const { message, poll } = await response;
 
     return {
       success: true,

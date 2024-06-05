@@ -12,6 +12,7 @@
 
   export let poll;
   export let disableShare = false;
+  export let isExample = false;
 
   $: totalVotes = poll?.totalVotes;
   let loading = false;
@@ -63,7 +64,7 @@
       poll: data,
       message,
       success,
-    } = await vote({ id: pollId, answer: option });
+    } = await vote({ id: pollId, answer: option }, { example: isExample });
 
     if (success) {
       poll = data;

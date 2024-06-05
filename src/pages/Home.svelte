@@ -10,8 +10,21 @@
   import { Button } from "../shared";
   import PollDetails from "../components/PollDetails.svelte";
   import { navigate } from "svelte-routing";
+  import { onMount } from "svelte";
+  import { getPollById } from "../services/pollService";
 
   let search = "";
+  let poll;
+
+  onMount(async () => {
+    const {
+      poll: data,
+      success,
+      message,
+    } = await getPollById(process.env.HOME_POLL, { example: true });
+
+    if (success) poll = data;
+  });
 </script>
 
 <div class="home min-h-full w-full flex flex-col gap-4 justify-center">
@@ -71,8 +84,9 @@
         <!-- <img src="/pollError.png" alt="error.poll" /> -->
         <div class="inn w-full h-full">
           <PollDetails
+            isExample
             disableShare
-            poll={{
+            poll={poll || {
               poll_id: "356464_43546322-2e43234356",
               question: "Intresting stuff right?",
               answers: [
@@ -87,7 +101,7 @@
               ],
               link: null,
               totalVotes: 0,
-              hasVoted: false,
+              isAdmin: false,
             }}
           />
         </div>
