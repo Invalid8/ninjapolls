@@ -5,8 +5,11 @@
   import { ThemeSwitch, Header, Footer } from "./components";
   import { ToastContainer } from "./lib";
   import { FlatToast } from "svelte-toasts";
+  import { inject } from "@vercel/analytics";
 
   export const url = "";
+
+  inject({ mode: process.env.isDev ? "development" : "production" });
 </script>
 
 <div class="wrapper">
