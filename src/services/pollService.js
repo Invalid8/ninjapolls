@@ -98,14 +98,22 @@ export const createPoll = async ({ question, options }) => {
   }
 };
 
-export const vote = async ({ id, answer }, opt) => {
+let controller = null
+
+export const vote = async ({ id, answer }, /** @type {{ example: boolean; }} */ opt) => {
+  if (controller) {
+    controller.abort();
+  }
+
+  controller = new AbortController();
+
   try {
     const response = await Api.post(
       `${!!opt?.example ? "/example" : ""}/polls/vote`,
       {
         id,
         option: answer,
-      }
+      }, controller.signal
     );
 
     const { message, poll } = await response;

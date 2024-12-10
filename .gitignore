@@ -26,3 +26,6 @@ dist-ssr
 hide/*
 .vscode/extensions.json
 vite.config.js.timestamp-1717582513521-f50ce024042c1.mjs
+.vercel
+.env*.local
+poll\[roxy.code-workspace

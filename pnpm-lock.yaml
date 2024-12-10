@@ -35,7 +35,10 @@ importers:
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.0.2
-        version: 3.1.1(svelte@4.2.17)(vite@5.2.12(terser@5.31.0))
+        version: 3.1.1(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))
+      '@types/node':
+        specifier: ^22.10.1
+        version: 22.10.1
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
@@ -71,7 +74,7 @@ importers:
         version: 3.4.3
       vite:
         specifier: ^5.2.0
-        version: 5.2.12(terser@5.31.0)
+        version: 5.2.12(@types/node@22.10.1)(terser@5.31.0)
 
 packages:
 
@@ -378,6 +381,9 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  '@types/node@22.10.1':
+    resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
   '@vercel/analytics@1.3.1':
     resolution: {integrity: sha512-xhSlYgAuJ6Q4WQGkzYTLmXwhYl39sWjoMA3nHxfkvG+WdBT25c563a7QhwwKivEOZtPJXifYHR1m2ihoisbWyA==}
@@ -1054,6 +1060,9 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+
   update-browserslist-db@1.0.16:
     resolution: {integrity: sha512-KVbTxlBYlckhF5wgfyZXTWnMn7MMZjMu9XG8bPlliUOP9ThaF4QnhP8qrjrH7DRzHfSk0oQv1wToW+iA5GajEQ==}
     hasBin: true
@@ -1332,30 +1341,34 @@ snapshots:
 
   '@socket.io/component-emitter@3.1.2': {}
 
-  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(terser@5.31.0)))(svelte@4.2.17)(vite@5.2.12(terser@5.31.0))':
+  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0)))(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.17)(vite@5.2.12(terser@5.31.0))
+      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))
       debug: 4.3.5
       svelte: 4.2.17
-      vite: 5.2.12(terser@5.31.0)
+      vite: 5.2.12(@types/node@22.10.1)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(terser@5.31.0))':
+  '@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(terser@5.31.0)))(svelte@4.2.17)(vite@5.2.12(terser@5.31.0))
+      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0)))(svelte@4.2.17)(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))
       debug: 4.3.5
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.10
       svelte: 4.2.17
       svelte-hmr: 0.16.0(svelte@4.2.17)
-      vite: 5.2.12(terser@5.31.0)
-      vitefu: 0.2.5(vite@5.2.12(terser@5.31.0))
+      vite: 5.2.12(@types/node@22.10.1)(terser@5.31.0)
+      vitefu: 0.2.5(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0))
     transitivePeerDependencies:
       - supports-color
 
   '@types/estree@1.0.5': {}
+
+  '@types/node@22.10.1':
+    dependencies:
+      undici-types: 6.20.0
 
   '@vercel/analytics@1.3.1':
     dependencies:
@@ -2062,6 +2075,8 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  undici-types@6.20.0: {}
+
   update-browserslist-db@1.0.16(browserslist@4.23.0):
     dependencies:
       browserslist: 4.23.0
@@ -2070,18 +2085,19 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite@5.2.12(terser@5.31.0):
+  vite@5.2.12(@types/node@22.10.1)(terser@5.31.0):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
     optionalDependencies:
+      '@types/node': 22.10.1
       fsevents: 2.3.3
       terser: 5.31.0
 
-  vitefu@0.2.5(vite@5.2.12(terser@5.31.0)):
+  vitefu@0.2.5(vite@5.2.12(@types/node@22.10.1)(terser@5.31.0)):
     optionalDependencies:
-      vite: 5.2.12(terser@5.31.0)
+      vite: 5.2.12(@types/node@22.10.1)(terser@5.31.0)
 
   which@2.0.2:
     dependencies:

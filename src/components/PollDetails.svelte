@@ -9,6 +9,7 @@
   import { cn, showNotification } from "../lib";
   import { Share2 } from "lucide-svelte";
   import ShareLink from "./ShareLink.svelte";
+  import { CanceledError } from "axios";
 
   export let poll;
   export let disableShare = false;
@@ -46,7 +47,7 @@
 
     // Optimistic update
     poll.totalVotes = !poll.user.option ? poll.totalVotes + 1 : poll.totalVotes;
-    poll.answers = poll.answers.map((e) => {
+    poll.answers = poll.answers.map((/** @type {{ answer: any; votes: number; }} */ e) => {
       if (e.answer === option) {
         return { ...e, votes: e.votes + 1 };
       } else if (e.answer === poll.user.option) {
@@ -58,6 +59,7 @@
         return e;
       }
     });
+    
     poll.user.option = option;
 
     const {
@@ -68,7 +70,7 @@
 
     if (success) {
       poll = data;
-    } else
+    } else if(message !== 'canceled')
       showNotification("error", "top-right", undefined, { message: message });
 
     loading = false;

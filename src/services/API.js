@@ -11,7 +11,8 @@ const axiosAPI = axios.create({
 const apiRequest = async (
   /** @type {string} */ method,
   /** @type {any} */ url,
-  /** @type {any} */ request
+  /** @type {any} */ request,
+  /** @type {any} */ signal
 ) => {
   const iid = await getFingerprint(); //
 
@@ -26,6 +27,7 @@ const apiRequest = async (
     url,
     data: request,
     headers,
+    signal: signal
   })
     .then((res) => {
       return Promise.resolve(res.data);
@@ -44,8 +46,8 @@ const deleteRequest = (/** @type {any} */ url, /** @type {any} */ request) =>
   apiRequest("delete", url, request);
 
 // function to execute the http post request
-const post = (/** @type {any} */ url, /** @type {any} */ request) =>
-  apiRequest("post", url, request);
+const post = (/** @type {any} */ url, /** @type {any} */ request, /** @type {any} */ signal) =>
+  apiRequest("post", url, request, signal);
 
 // function to execute the http put request
 const put = (/** @type {any} */ url, /** @type {any} */ request) =>
