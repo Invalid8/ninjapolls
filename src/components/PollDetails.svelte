@@ -9,7 +9,6 @@
   import { cn, showNotification } from "../lib";
   import { Share2 } from "lucide-svelte";
   import ShareLink from "./ShareLink.svelte";
-  import { CanceledError } from "axios";
 
   export let poll;
   export let disableShare = false;
