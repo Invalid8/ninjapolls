@@ -8,7 +8,7 @@
     <ul class="flex gap-1 flex-col">
       <li>
         Developed by <a target="_blank" href="https://github.com/invalid8"
-          >DAlgoridim</a
+          >Dalgoridim</a
         >
       </li>
       <li>
@@ -20,9 +20,9 @@
           href="https://youtu.be/zojEMeQGGHs?si=NyDrYdBy7UxdfaX9">Net Ninja</a
         >
       </li>
-      <Button smSize color="secondary" inverse>
+      <!-- <Button smSize color="secondary" inverse>
         <span class="font-bold">Buy me a coffee</span><Coffee />
-      </Button>
+      </Button> -->
     </ul>
   </div>
 </footer>
